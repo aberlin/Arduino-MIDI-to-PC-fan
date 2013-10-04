@@ -58,7 +58,8 @@ void playTone(int noteByte);
 void loop() { // Main loop
 
 	MIDI.read(); // Continually check what Midi Commands have been received.
-
+	//MakeSample();
+	//PlaySample();
 }
 
 void playTone(int noteByte) {
