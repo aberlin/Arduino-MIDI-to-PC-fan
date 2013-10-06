@@ -47,9 +47,9 @@ void setup() {
 	pinMode(LED, OUTPUT); // Set Arduino board pin 13 to output
 	MIDI.begin(MIDI_CHANNEL_OMNI); // Initialize the Midi Library.
 // OMNI sets it to listen to all channels.. MIDI.begin(2) would set it
-// to respond to channel 2 notes only.
+// to respond to channel﻿﻿ 2 notes only.
 	MIDI.setHandleNoteOn(MyHandleNoteOn); // This is important!! This command
-	// tells the Midi Library which function I want called when a Note ON command
+	// tells the Midi L﻿﻿ibrary which function I want called when a Note ON command
 	// is received. in this case it's "MyHandleNoteOn".
 	MIDI.setHandleNoteOff(MyHandleNoteOff);
 }
@@ -61,7 +61,7 @@ void loop() { // Main loop
 	//MakeSample();
 	//PlaySample();
 }
-
+//MIDI
 void playTone(int noteByte) {
 	if (lastTone1 == 0) {
 		lastTone1 = noteByte;
@@ -77,11 +77,25 @@ void playTone(int noteByte) {
 }
 
 int getTone(int noteByte) {
-	static const int tones[] = { 8372 / 2, 8870 / 2, 9397 / 2, 9956 / 2, 10548
-			/ 2, 11175 / 2, 11840 / 2, 12544 / 2, 13290 / 2, 14080 / 2, 14917
-			/ 2, 15804 / 2 };
 
-	//9
+
+	//an Octave
+	static const int tones[] = {
+			8372 / 2,//c
+			8870 / 2,//c#
+			9397 / 2,//d
+			9956 / 2, //d#
+			10548/ 2,//e
+			11175 / 2,//f
+			11840 / 2,//f#
+			12544 / 2,//g
+			13290 / 2,//g#
+			14080 / 2, //a
+			14917/ 2,//a#
+			15804 / 2 //h
+			};
+
+	//find the right octave, then calculate the Frequency
 	if (noteByte >= 120)
 		return tones[noteByte - 120];
 	//8
