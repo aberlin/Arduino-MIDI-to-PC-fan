@@ -9,10 +9,7 @@ int muteFrquenzy = 30000;//The Fan should move even when there is no Sound you c
 volatile byte lastTone1 = 0;
 volatile byte lastTone2 = 0;
 
-//?
-volatile int curentFreuq;
-
-//Deklarieren
+//Prototypesn
 int getTone(int noteByte);
 void playTone(int noteByte);
 
@@ -54,13 +51,13 @@ void setup() {
 	MIDI.setHandleNoteOff(MyHandleNoteOff);
 }
 
-void playTone(int noteByte);
 void loop() { // Main loop
 
 	MIDI.read(); // Continually check what Midi Commands have been received.
 	//MakeSample();
 	//PlaySample();
 }
+
 //MIDI
 void playTone(int noteByte) {
 	if (lastTone1 == 0) {
@@ -95,39 +92,12 @@ int getTone(int noteByte) {
 			15804 / 2 //h
 			};
 
-	//find the right octave, then calculate the Frequency
-	if (noteByte >= 120)
-		return tones[noteByte - 120];
-	//8
-	if (noteByte >= 108)
-		return tones[noteByte - 108] / 2;
-	//7
-	if (noteByte >= 96)
-		return tones[noteByte - 96] / 4;
-	//6
-	if (noteByte >= 84)
-		return tones[noteByte - 84] / 8;
-	//5
-	if (noteByte >= 72)
-		return tones[noteByte - 72] / 16;
-	//4
-	if (noteByte >= 60)
-		return tones[noteByte - 60] / 32;
-	//3
-	if (noteByte >= 48)
-		return tones[noteByte - 48] / 64;
-	//2
-	if (noteByte >= 36)
-		return tones[noteByte - 36] / 128;
-	//1
-	if (noteByte >= 24)
-		return tones[noteByte - 24] / 256;
-	//0
-	if (noteByte >= 12)
-		return tones[noteByte - 12] / 512;
-	//-1
-	if (noteByte >= 0)
-		return tones[noteByte - 0] / 1024;
+    int divisor = 1;
+    for(int i=120,i>=0,i-=12) {
+        if(noteByte >=i)
+            return tones[noteByte - i] / divisor;
+        divisor <<=1;
+    }
 	return 0;
 
 }
