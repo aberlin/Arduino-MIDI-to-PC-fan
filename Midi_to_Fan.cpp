@@ -92,11 +92,11 @@ int getTone(int noteByte) {
 			15804 / 2 //h
 			};
 
-    int divisor = 1;
-    for(int i=120,i>=0,i-=12) {
+    uint16_t rightshift = 0;
+    for(int i=120;i>=0;i-=12) {
         if(noteByte >=i)
-            return tones[noteByte - i] / divisor;
-        divisor <<=1;
+            return tones[noteByte - i] >> rightshift;
+        rightshift++;
     }
 	return 0;
 
