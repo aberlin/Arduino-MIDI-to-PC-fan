@@ -92,13 +92,10 @@ int getTone(int noteByte) {
 			15804 / 2 //h
 			};
 
-    uint16_t rightshift = 0;
-    for(int i=120;i>=0;i-=12) {
-        if(noteByte >=i)
-            return tones[noteByte - i] >> rightshift;
-        rightshift++;
-    }
-	return 0;
+	uint16_t rightshift = 10 - noteByte/12; // find the right octave for the tone
+	return tones[noteByte%12] >> rightshift; // take the frequency and transpose it into the right octave
+	// to transpose an octave deeper the frequency is divided by 2, this is done with a >> in this case
+
 
 }
 
